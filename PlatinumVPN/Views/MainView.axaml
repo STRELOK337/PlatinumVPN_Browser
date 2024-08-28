@@ -1,0 +1,137 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="clr-namespace:PlatinumVPN.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             x:Class="PlatinumVPN.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="/Styling/ListBoxStyles1.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="#393939">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Top"  HorizontalAlignment="Stretch" Grid.Row="0">
+            <Button VerticalAlignment="Center" HorizontalAlignment="Left"  Background="Transparent" BorderBrush="Transparent">
+                <StackPanel  Orientation="Horizontal">
+                    <Image    Source="/Assets/rt45.png"/>
+                    <TextBlock Text="PlatinumVPN" VerticalAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" Command="{Binding SetUserCookie}" Margin="0 0 5 0" VerticalAlignment="Center" CornerRadius="13" HorizontalAlignment="Right"
+                    Width="40" Height="40" BorderBrush="Transparent">
+                <avalonia:MaterialIcon
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#88706B"
+                    Kind="AccountCircleOutline"/>
+            </Button>
+            <Button IsVisible="{Binding IsVisible}" Background="Transparent" Margin="0 0 5 0" VerticalAlignment="Center" CornerRadius="13" HorizontalAlignment="Right"
+                    Width="40" Height="40" BorderBrush="Transparent">
+                <avalonia:MaterialIcon
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#88706B"
+                    Kind="AccountCircleOutline"/>
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <Grid HorizontalAlignment="Stretch" >
+                            <Border HorizontalAlignment="Stretch"
+                                    Padding="0,0,15,0"
+                                    Background="#282828"
+                                    CornerRadius="20">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                    <Grid>
+                                        <Ellipse
+                                            Width="35"
+                                            Height="35"
+                                            Fill="#88706B" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Text="{Binding FirstLetter}" />
+                                        <Border
+                                            Width="35"
+                                            Height="35"
+                                            ClipToBounds="True"
+                                            CornerRadius="20">
+                                            <Image
+                                                ClipToBounds="True"
+                                                Stretch="UniformToFill" />
+                                        </Border>
+                                    </Grid>
+                                    <StackPanel>
+                                        <TextBlock Margin="15,2,0,0" Text="{Binding CookieValue}" />
+                                        <TextBlock Margin="15,0,0,2" Text="1" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                        </Grid>
+
+                        <MenuItem Header="Пополнить баланс" >
+                            <MenuItem.Icon>
+                                <avalonia:MaterialIcon
+                                    Foreground="#88706B"
+                                    Kind="WalletOutline"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Мои Подписки">
+                            <MenuItem.Icon>
+                                <avalonia:MaterialIcon
+                                    Foreground="#88706B"
+                                    Kind="OrderBoolAscendingVariant"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Помощь">
+                            <MenuItem.Icon>
+                                <avalonia:MaterialIcon
+                                    Foreground="#88706B"
+                                    Kind="HelpCircle"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <Separator/>
+                        <MenuItem Header="Выйти">
+                            <MenuItem.Icon>
+                                <avalonia:MaterialIcon
+                                    Foreground="#88706B"
+                                    Kind="Logout"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+            <Separator  VerticalAlignment="Bottom"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding MenuFrameView}" />
+        </Grid>
+    </Grid>
+</UserControl>
